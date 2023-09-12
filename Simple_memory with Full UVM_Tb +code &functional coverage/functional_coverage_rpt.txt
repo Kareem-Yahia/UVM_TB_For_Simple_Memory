@@ -1,0 +1,99 @@
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /pack1/my_subscriber/cov_inst                   100.00%        100          -    Covered              
+    covered/total bins:                                    34         34          -                      
+    missing/total bins:                                     0         34          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint #coverpoint__0#                        100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint #coverpoint__1#                        100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint #seq_item_inst.write_En__2#            100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint #seq_item_inst.read_En__3#             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Coverpoint #seq_item_inst.rst__4#                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+    Cross cross1                                      100.00%        100          -    Covered              
+        covered/total bins:                                 8          8          -                      
+        missing/total bins:                                 0          8          -                      
+        % Hit:                                        100.00%        100          -                      
+ Covergroup instance \/pack1::my_subscriber::cov_inst  
+                                                      100.00%        100          -    Covered              
+    covered/total bins:                                    34         34          -                      
+    missing/total bins:                                     0         34          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint #coverpoint__0#                        100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin bin_1[0]                                        5          1          -    Covered              
+        bin bin_1[1]                                      122          1          -    Covered              
+        bin bin_2                                           2          1          -    Covered              
+        bin bin_3                                           1          1          -    Covered              
+    Coverpoint #coverpoint__1#                        100.00%        100          -    Covered              
+        covered/total bins:                                16         16          -                      
+        missing/total bins:                                 0         16          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                         6          1          -    Covered              
+        bin auto[1]                                         6          1          -    Covered              
+        bin auto[2]                                         8          1          -    Covered              
+        bin auto[3]                                        10          1          -    Covered              
+        bin auto[4]                                         5          1          -    Covered              
+        bin auto[5]                                        13          1          -    Covered              
+        bin auto[6]                                         9          1          -    Covered              
+        bin auto[7]                                         4          1          -    Covered              
+        bin auto[8]                                         4          1          -    Covered              
+        bin auto[9]                                         6          1          -    Covered              
+        bin auto[10]                                        9          1          -    Covered              
+        bin auto[11]                                        2          1          -    Covered              
+        bin auto[12]                                        6          1          -    Covered              
+        bin auto[13]                                       31          1          -    Covered              
+        bin auto[14]                                        4          1          -    Covered              
+        bin auto[15]                                        4          1          -    Covered              
+    Coverpoint #seq_item_inst.write_En__2#            100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                        59          1          -    Covered              
+        bin auto[1]                                        68          1          -    Covered              
+    Coverpoint #seq_item_inst.read_En__3#             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                        60          1          -    Covered              
+        bin auto[1]                                        67          1          -    Covered              
+    Coverpoint #seq_item_inst.rst__4#                 100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin auto[0]                                         5          1          -    Covered              
+        bin auto[1]                                       122          1          -    Covered              
+    Cross cross1                                      100.00%        100          -    Covered              
+        covered/total bins:                                 8          8          -                      
+        missing/total bins:                                 0          8          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <auto[1],auto[1],auto[1]>                   9          1          -    Covered              
+            bin <auto[0],auto[1],auto[1]>                  56          1          -    Covered              
+            bin <auto[1],auto[0],auto[1]>                  56          1          -    Covered              
+            bin <auto[0],auto[0],auto[1]>                   1          1          -    Covered              
+            bin <auto[1],auto[1],auto[0]>                   1          1          -    Covered              
+            bin <auto[0],auto[1],auto[0]>                   1          1          -    Covered              
+            bin <auto[1],auto[0],auto[0]>                   2          1          -    Covered              
+            bin <auto[0],auto[0],auto[0]>                   1          1          -    Covered              
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
