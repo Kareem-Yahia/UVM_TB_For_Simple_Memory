@@ -1,6 +1,4 @@
-# UVM_TB_For_Simple_Memory
-Project Title: Simple Memory UVM Environment                                                 
-
+# Project Title: Simple Memory UVM Environment                                                
 The project completion date is September 11, 2023.
 
 Description:
