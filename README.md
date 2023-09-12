@@ -1,6 +1,6 @@
 # UVM_TB_For_Simple_Memory
 Project Title: Simple Memory UVM Environment                                                 
-Date of creation : summer 2023
+Date of creation : Summer 2023
 
 Description:
 The Simple Memory UVM Environment, developed by Kareem, is a comprehensive Universal Verification Methodology (UVM) environment designed to verify the functionality of 
