@@ -22,7 +22,7 @@ class my_sequence_item extends uvm_sequence_item;
 
   function void print ();
     $display("time=%0t Data_in=%h Address=%h write_En=%b read_En=%b rst=%b Data_out=%h",
-      ($time-11),Data_in,Address,write_En,read_En,rst,Data_out); //hacking
+      $time,Data_in,Address,write_En,read_En,rst,Data_out); //hacking
   endfunction
 
 endclass
@@ -136,7 +136,7 @@ class my_driver extends uvm_driver #(my_sequence_item);
       driver_virtual.write_En<=seq_item_inst.write_En;
       driver_virtual.read_En<=seq_item_inst.read_En;
       driver_virtual.rst<=seq_item_inst.rst;
-      #1 seq_item_port.item_done();
+      #1step seq_item_port.item_done();
     end
 
   endtask 
@@ -185,8 +185,7 @@ class my_monitor extends uvm_monitor;
       seq_item_inst.read_En<=monitor_virtual.read_En;
       seq_item_inst.rst<=monitor_virtual.rst;
       seq_item_inst.Data_out<=monitor_virtual.Data_out;
-
-      m_analysis_port.write(seq_item_inst); //hereeeeeeeeeeeeeeeeeeee
+        #1step m_analysis_port.write(seq_item_inst); //hereeeeeeeeeeeeeeeeeeee
     end
   endtask
 
@@ -305,8 +304,8 @@ class my_scoreboard extends uvm_scoreboard;
   task run_phase(uvm_phase phase);
     super.run_phase(phase);
     forever begin
-      m_analysis_fifo.get_peek_export.get(seq_item_inst);
-      #1 seq_item_inst.print();
+      m_analysis_fifo.get(seq_item_inst);
+      seq_item_inst.print();
     end
   endtask 
     
