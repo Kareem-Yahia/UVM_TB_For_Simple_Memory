@@ -1,0 +1,94 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /\memory_tb#m1 
+=== Design Unit: work.memory
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         6         6         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /\memory_tb#m1 
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File memory.v
+------------------------------------IF Branch------------------------------------
+    10                                       124     Count coming in to IF
+    10              1                          7         if(!rst)
+    12              1                        117         else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    13                                       117     Count coming in to IF
+    13              1                         59           if(write_En)
+                                              58     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    15                                       117     Count coming in to IF
+    15              1                         59           if(read_En)
+                                              58     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       4         4         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /\memory_tb#m1  --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File memory.v
+    1                                                module memory(Data_in,Address,write_En,read_En,Clk,rst,Data_out);
+    2                                                  
+    3                                                  input [31:0] Data_in;
+    4                                                  input [3:0] Address;
+    5                                                  input write_En,read_En,Clk,rst;
+    6                                                  output reg [31:0] Data_out;
+    7                                                  reg [31:0] mem [15:0];
+    8                                                  
+    9               1                        124       always @(posedge Clk or negedge rst) begin
+    10                                                   if(!rst)
+    11              1                          7           Data_out<=0;
+    12                                                   else begin
+    13                                                     if(write_En)
+    14              1                         59             mem[Address]<=Data_in;
+    15                                                     if(read_En)
+    16              1                         59             Data_out<=mem[Address];
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        144       144         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /\memory_tb#m1  --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                      Address[0-3]           1           1      100.00 
+                                               Clk           1           1      100.00 
+                                     Data_in[0-31]           1           1      100.00 
+                                    Data_out[31-0]           1           1      100.00 
+                                           read_En           1           1      100.00 
+                                               rst           1           1      100.00 
+                                          write_En           1           1      100.00 
+
+Total Node Count     =         72 
+Toggled Node Count   =         72 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (144 of 144 bins)
+
+
+Total Coverage By Instance (filtered view): 100.00%
+
