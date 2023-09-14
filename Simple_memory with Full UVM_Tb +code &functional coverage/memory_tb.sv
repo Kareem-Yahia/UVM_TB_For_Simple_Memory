@@ -1,5 +1,5 @@
 package pack1;
-
+ static int error_count,correct_count;
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 
@@ -22,7 +22,7 @@ class my_sequence_item extends uvm_sequence_item;
 
   function void print ();
     $display("time=%0t Data_in=%h Address=%h write_En=%b read_En=%b rst=%b Data_out=%h",
-      $time,Data_in,Address,write_En,read_En,rst,Data_out); //hacking
+      $time,Data_in,Address,write_En,read_En,rst,Data_out);
   endfunction
 
 endclass
@@ -72,7 +72,7 @@ class my_sequence extends uvm_sequence #(my_sequence_item);
       finish_item(seq_item_inst);
     end
 
-    //code coverage clauser
+    //exhaustive testing {just to make sure code coverage reaches 100% for this simple design}
     start_item(seq_item_inst);
     assert (seq_item_inst.randomize() with {rst==0;read_En==0;write_En==0;Data_in==32'h00000;});
     finish_item(seq_item_inst);
@@ -285,7 +285,13 @@ class my_scoreboard extends uvm_scoreboard;
     uvm_tlm_analysis_fifo #(my_sequence_item) m_analysis_fifo;
 
     my_sequence_item seq_item_inst;
-    my_sequence_item seq_item_inst_ex;
+    // my_sequence_item seq_item_inst_ex;
+
+
+
+    //Golden Model signals
+    logic [31:0] mem_model [15:0];
+    logic [31:0] Data_out_exp;
 
   function new(string name="my_scoreboard" ,uvm_component parent =null);
     super.new(name,parent);
@@ -297,15 +303,46 @@ class my_scoreboard extends uvm_scoreboard;
     m_analysis_export=new("m_analysis_export",this);
     m_analysis_fifo=new("m_analysis_fifo",this);
     seq_item_inst=my_sequence_item::type_id::create("seq_item_inst");
-    seq_item_inst_ex=my_sequence_item::type_id::create("seq_item_inst_ex");
+    // seq_item_inst_ex=my_sequence_item::type_id::create("seq_item_inst_ex");
 
   endfunction
+
+  task golden_model();
+
+    if(!seq_item_inst.rst)
+      Data_out_exp=0;
+    else begin
+      if(seq_item_inst.read_En)
+        Data_out_exp=mem_model[seq_item_inst.Address];
+
+      if(seq_item_inst.write_En)
+        mem_model[seq_item_inst.Address]=seq_item_inst.Data_in;
+    end
+
+  endtask
+
+  task check_result();
+
+    if(seq_item_inst.Data_out != Data_out_exp) begin
+      $display("ERROR:time=%0t rst=%b write_En=%b read_En=%b Data_in=%h  Address=%h ----> Data_out=%h but Data_out_exp=%h",$time,
+        seq_item_inst.rst,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
+        seq_item_inst.Address,seq_item_inst.Data_out,Data_out_exp);
+      error_count++;
+    end
+    else begin
+      correct_count++;
+      $display("Done:time=%0t rst=%b write_En=%b read_En=%b Data_in=%h  Address=%h  ----> Data_out=%h == Data_out_exp=%h",$time,
+        seq_item_inst.rst,seq_item_inst.write_En,seq_item_inst.read_En,seq_item_inst.Data_in,
+        seq_item_inst.Address,seq_item_inst.Data_out,Data_out_exp);
+    end
+  endtask
   
   task run_phase(uvm_phase phase);
     super.run_phase(phase);
     forever begin
       m_analysis_fifo.get(seq_item_inst);
-      seq_item_inst.print();
+      golden_model();
+      check_result();
     end
   endtask 
     
@@ -430,7 +467,7 @@ class my_test extends uvm_test;
   
   function void build_phase (uvm_phase phase);
     super.build_phase(phase);
-    // $display("build_Test_GAMEDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+    // $display("build_Test");
 
     env=my_env::type_id::create("env",this);
     sequence_inst=my_sequence::type_id::create("sequence_inst");
@@ -445,15 +482,18 @@ class my_test extends uvm_test;
     super.run_phase(phase);
     phase.raise_objection(this,"Starting Sequences");
     sequence_inst.start(env.agent.sequencer);
-    #100; //hacking to get 100 coverage 
-    phase.drop_objection(this,"Starting Sequences");
-
+    #40; //hacking to get 100 coverage 
+    phase.drop_objection(this,"Finished Sequences");
   endtask 
     
     function void connect_phase (uvm_phase phase);
    	  super.connect_phase(phase);
       // $display("connect_test");
+    endfunction
 
+     function void report_phase(uvm_phase phase);
+      super.report_phase(phase);
+        `uvm_info(get_type_name(),$sformatf("Finish: error_count=%0d correct_count=%0d",error_count,correct_count),UVM_LOW);
     endfunction
 endclass
 
