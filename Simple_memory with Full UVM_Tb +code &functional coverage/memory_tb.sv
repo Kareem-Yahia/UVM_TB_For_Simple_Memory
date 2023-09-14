@@ -482,7 +482,7 @@ class my_test extends uvm_test;
     super.run_phase(phase);
     phase.raise_objection(this,"Starting Sequences");
     sequence_inst.start(env.agent.sequencer);
-    #40; //hacking to get 100 coverage 
+    #40;  
     phase.drop_objection(this,"Finished Sequences");
   endtask 
     
